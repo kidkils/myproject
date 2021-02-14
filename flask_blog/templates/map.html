@@ -1,0 +1,47 @@
+{% extends "main.html" %}
+{% block content %}
+<div class="content">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h5 class="title">100 Awesome Nucleo Icons</h5>
+          <p class="category">Handcrafted by our friends from <a href="https://nucleoapp.com/?ref=1712">NucleoApp</a></p>
+        </div>
+        <div class="card-body all-icons">
+          <div class="row">
+            <div class="col-12">
+              <div class="card card-chart">
+                <div class="card-header ">
+                  <div class="row">
+                    <div class="col-sm-6 text-left">
+                      <h5 class="card-category">Total Shipments</h5>
+                      <h2 class="card-title">Kelembapan</h2>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-body">
+                    <input type="hidden" name="kelembapan_label" value="{% for label in kelembapan.label %}{{label}}{%if not loop.last %},{% endif %}{% endfor %}">
+                    <input type="hidden" name="kelembapan_data" value="{% for data in kelembapan.data %}{{data}}{%if not loop.last %},{% endif %}{% endfor %}">
+                    <div class="chart-area">
+                      <canvas id="chartSuhu"></canvas>
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}
+
+{% block custom_js_script %}
+<script>
+    labelsKelembapan = $('input[name="kelembapan_label"]').val().split(',')
+    datasKelembapan = $('input[name="kelembapan_data"]').val().split(',')
+  
+    changeChartSuhu(labelsKelembapan, datasKelembapan)
+</script>
+{% endblock %}
