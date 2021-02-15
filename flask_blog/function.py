@@ -12,19 +12,25 @@ def getData(query):
     return 0
 
 def getDataHujan():
-    query = "SELECT time, value FROM hujan ORDER BY desc LIMIT 6"
-    result = getData(query)
+    number_of_node = 1
     hujan = {}
-    hujan['label'] = []
-    hujan['data'] = []
 
-    for data in result['series'][0]['values']:
-        data[0] = datetime.strptime(data[0], '%Y-%m-%dT%H:%M:%S.%fZ')
-        data[0] = data[0].strftime('%H:%M:%S')
+    for i in range(1, number_of_node +1):
+        query = "SELECT time, value FROM hujan where namenode='node"+ str(i) +"' ORDER BY desc LIMIT 6"
+        result = getData(query)
+        h = {}
+        h['label'] = []
+        h['data'] = []
 
-        hujan['label'].append(data[0])
-        hujan['data'].append(data[1])
-    
+        for data in result['series'][0]['values']:
+            data[0] = datetime.strptime(data[0], '%Y-%m-%dT%H:%M:%S.%fZ')
+            data[0] = data[0].strftime('%H:%M:%S')
+
+            h['label'].append(data[0])
+            h['data'].append(data[1])
+
+        hujan['node' + str(i)] = h
+
     if hujan:
         return hujan
 
@@ -56,18 +62,24 @@ def getDataSuhu():
     return 0
 
 def getDataMoisture():
-    query = "SELECT time, value FROM moisture ORDER BY desc LIMIT 6"
-    result = getData(query)
+    number_of_node = 1
     moisture = {}
-    moisture['label'] = []
-    moisture['data'] = []
 
-    for data in result['series'][0]['values']:
-        data[0] = datetime.strptime(data[0], '%Y-%m-%dT%H:%M:%S.%fZ')
-        data[0] = data[0].strftime('%H:%M:%S')
+    for i in range(1, number_of_node + 1):
+        query = "SELECT time, value FROM moisture where namenode='node"+ str(i) +"' ORDER BY desc LIMIT 6"
+        result = getData(query)
+        m = {}
+        m['label'] = []
+        m['data'] = []
 
-        moisture['label'].append(data[0])
-        moisture['data'].append(data[1])
+        for data in result['series'][0]['values']:
+            data[0] = datetime.strptime(data[0], '%Y-%m-%dT%H:%M:%S.%fZ')
+            data[0] = data[0].strftime('%H:%M:%S')
+
+            m['label'].append(data[0])
+            m['data'].append(data[1])
+        
+        moisture['node' + str(i)] = m
 
     if moisture:
         return moisture
@@ -75,18 +87,24 @@ def getDataMoisture():
     return 0
 
 def getDataKelembapan():
-    query = "SELECT time, value FROM kelembapan ORDER BY desc LIMIT 6"
-    result = getData(query)
+    number_of_node = 1
     kelembapan = {}
-    kelembapan['label'] = []
-    kelembapan['data'] = []
 
-    for data in result['series'][0]['values']:
-        data[0] = datetime.strptime(data[0], '%Y-%m-%dT%H:%M:%S.%fZ')
-        data[0] = data[0].strftime('%H:%M:%S')
+    for i in range(1, number_of_node + 1):
+        query = "SELECT time, value FROM kelembapan where namenode='node"+ str(i) +"' ORDER BY desc LIMIT 6"
+        result = getData(query)
+        k = {}
+        k['label'] = []
+        k['data'] = []
 
-        kelembapan['label'].append(data[0])
-        kelembapan['data'].append(data[1])
+        for data in result['series'][0]['values']:
+            data[0] = datetime.strptime(data[0], '%Y-%m-%dT%H:%M:%S.%fZ')
+            data[0] = data[0].strftime('%H:%M:%S')
+
+            k['label'].append(data[0])
+            k['data'].append(data[1])
+
+        kelembapan['node' + str(i)] = k
 
     if kelembapan:
         return kelembapan
