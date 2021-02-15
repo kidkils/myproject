@@ -31,18 +31,24 @@ def getDataHujan():
     return 0
 
 def getDataSuhu():
-    query = "SELECT time, value FROM suhu ORDER BY desc LIMIT 6"
-    result = getData(query)
+    number_of_node = 1
     suhu = {}
-    suhu['label'] = []
-    suhu['data'] = []
 
-    for data in result['series'][0]['values']:
-        data[0] = datetime.strptime(data[0], '%Y-%m-%dT%H:%M:%S.%fZ')
-        data[0] = data[0].strftime('%H:%M:%S')
+    for i in range(1, number_of_node + 1):
+        query = "SELECT time, value FROM suhu where namenode='node"+ str(i) +"' ORDER BY desc LIMIT 6"
+        result = getData(query)
+        s = {}
+        s['label'] = []
+        s['data'] = []
 
-        suhu['label'].append(data[0])
-        suhu['data'].append(data[1])
+        for data in result['series'][0]['values']:
+            data[0] = datetime.strptime(data[0], '%Y-%m-%dT%H:%M:%S.%fZ')
+            data[0] = data[0].strftime('%H:%M:%S')
+
+            s['label'].append(data[0])
+            s['data'].append(data[1])
+        
+        suhu['node' + str(i)] = s
 
     if suhu:
         return suhu

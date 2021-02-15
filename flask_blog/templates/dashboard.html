@@ -601,75 +601,77 @@ $(document).ready(function() {
   var postId = 1;
 
   // logic to get new data
-  function getDataSuhu(){
-    $.ajax({
-      url: 'http://127.0.0.1:5000/suhu/',
-      success: function(data) {
-        // process your data to pull out what you plan to use to update the chart
-        // e.g. new label and a new data point
-        // console.log(data.label);
-        var label = [];
-        var value = [];
-        // add new label and data point to chart's underlying data structures
-        // for (var i in data) {
-        //                   label.push(data[i].label);
-        //                   value.push(data[i].data);
-        // }
-        data.label.forEach(function(parseLabel){
-          label.push(parseLabel);
-        })
-        data.data.forEach(function(parseData){
-          value.push(parseData);
-        })
-        // console.log(data["label"])
-          
+    function getDataSuhu(){
+        $.ajax({
+            url: 'http://127.0.0.1:5000/suhu/',
+            success: function(data) {
+                // process your data to pull out what you plan to use to update the chart
+                // e.g. new label and a new data point
+                // console.log(data.label);
+                var label = [];
+                var value = [];
+                // add new label and data point to chart's underlying data structures
+                // for (var i in data) {
+                //                   label.push(data[i].label);
+                //                   value.push(data[i].data);
+                // }
+                data.label.forEach(function(parseLabel){
+                  label.push(parseLabel);
+                })
+                data.data.forEach(function(parseData){
+                  value.push(parseData);
+                })
+                // console.log(data["label"])
+                  
 
-        // console.log(value)
+                // console.log(value)
 
-        // chartSuhu.data.labels.push(label);
-        // chartSuhu.data.datasets[0].data.push(value);
+                // chartSuhu.data.labels.push(label);
+                // chartSuhu.data.datasets[0].data.push(value);
 
-  var ctxSuhu = document.getElementById("chartSuhu").getContext('2d');
+                var ctxSuhu = document.getElementById("chartSuhu").getContext('2d');
 
-  var gradientStroke = ctxSuhu.createLinearGradient(0, 230, 0, 50);
+                var gradientStroke = ctxSuhu.createLinearGradient(0, 230, 0, 50);
 
-  gradientStroke.addColorStop(1, 'rgba(72,72,176,0.1)');
-  gradientStroke.addColorStop(0.4, 'rgba(72,72,176,0.0)');
-  gradientStroke.addColorStop(0, 'rgba(119,52,169,0)'); //purple colors
-  var chartSuhu = new Chart(ctxSuhu, {
-      type: 'line',
-      data: {
-          labels: label,
-          datasets: [{
-              label: "data",
-              fill: true,
-              backgroundColor: gradientStroke,
-              borderColor: '#d346b1',
-              borderWidth: 2,
-              borderDash: [],
-              borderDashOffset: 0.0,
-              pointBackgroundColor: '#d346b1',
-              pointBorderColor: 'rgba(255,255,255,0)',
-              pointHoverBackgroundColor: '#d346b1',
-              pointBorderWidth: 20,
-              pointHoverRadius: 4,
-              pointHoverBorderWidth: 15,
-              pointRadius: 4,
-              data: value,
-          }]
-      },
-      options: gradientChartOptionsConfigurationWithTooltipPurple
-  });   
-  // // re-render the chart
-    chartSuhu.update();
-  },
-    complete:function(){
-    // get new data every 3 seconds
-    setInterval(getDataSuhu, 3000);        
-    }
-  });
-};
-getDataSuhu()
+                gradientStroke.addColorStop(1, 'rgba(72,72,176,0.1)');
+                gradientStroke.addColorStop(0.4, 'rgba(72,72,176,0.0)');
+                gradientStroke.addColorStop(0, 'rgba(119,52,169,0)'); //purple colors
+                var chartSuhu = new Chart(ctxSuhu, {
+                    type: 'line',
+                    data: {
+                        labels: label,
+                        datasets: [{
+                            label: "data",
+                            fill: true,
+                            backgroundColor: gradientStroke,
+                            borderColor: '#d346b1',
+                            borderWidth: 2,
+                            borderDash: [],
+                            borderDashOffset: 0.0,
+                            pointBackgroundColor: '#d346b1',
+                            pointBorderColor: 'rgba(255,255,255,0)',
+                            pointHoverBackgroundColor: '#d346b1',
+                            pointBorderWidth: 20,
+                            pointHoverRadius: 4,
+                            pointHoverBorderWidth: 15,
+                            pointRadius: 4,
+                            data: value,
+                        }]
+                    },
+                    options: gradientChartOptionsConfigurationWithTooltipPurple
+                });   
+                // // re-render the chart
+                chartSuhu.update();
+            },
+
+            complete:function(){
+              // get new data every 3 seconds
+              setInterval(getDataSuhu, 3000);        
+            }
+        });
+    };
+
+    getDataSuhu()
 
 // CHART KELEMBAPAN
 function getDataKelembapan(){
@@ -795,63 +797,67 @@ var chartHujan = new Chart(ctxHujan, {
 };
 getDataHujan()
 
-function getDataMoisture(){
-$.ajax({
-url: 'http://127.0.0.1:5000/moisture/',
-success: function(data) {
-  // process your data to pull out what you plan to use to update the chart
-  // e.g. new label and a new data point
-  // console.log(data.label);
-  var label = [];
-  var value = [];
- 
-  data.label.forEach(function(parseLabel){
-    label.push(parseLabel);
-  })
-  data.data.forEach(function(parseData){
-    value.push(parseData);
-  })
-// CHART MOISTURE TANAH
-var ctxMoisture = document.getElementById("ChartMoisture").getContext("2d");
+    function getDataMoisture(){
+        $.ajax({
+            url: 'http://127.0.0.1:5000/moisture/',
+            success: function(data) {
+                // process your data to pull out what you plan to use to update the chart
+                // e.g. new label and a new data point
+                // console.log(data.label);
+                var label = [];
+                var value = [];
+              
+                data.label.forEach(function(parseLabel){
+                  label.push(parseLabel);
+                })
 
-var gradientStroke = ctxMoisture.createLinearGradient(0, 230, 0, 50);
+                data.data.forEach(function(parseData){
+                  value.push(parseData);
+                })
 
-gradientStroke.addColorStop(1, 'rgba(29,140,248,0.2)');
-gradientStroke.addColorStop(0.4, 'rgba(29,140,248,0.0)');
-gradientStroke.addColorStop(0, 'rgba(29,140,248,0)'); //blue colors
+                // CHART MOISTURE TANAH
+                var ctxMoisture = document.getElementById("ChartMoisture").getContext("2d");
 
-var ChartMoisture = new Chart(ctxMoisture, {
-    type: 'line',
-    responsive: true,
-    legend: {
-        display: false
-    },
-    data: {
-    labels: label,
-        datasets: [{
-            label: "moisture tanah",
-            fill: true,
-            backgroundColor: gradientStroke,
-            hoverBackgroundColor: gradientStroke,
-            borderColor: '#1f8ef1',
-            borderWidth: 2,
-            borderDash: [],
-            borderDashOffset: 0.0,
-            data: value,
-        }]
-    },
-    options: gradientBarChartConfiguration
-});
-    // // re-render the chart
-    ChartMoisture.update();
-    },
-      complete:function(){
-      // get new data every 3 seconds
-      setInterval(getDataMoisture, 3000);        
-      }
-    });
-  };
-  getDataMoisture()
+                var gradientStroke = ctxMoisture.createLinearGradient(0, 230, 0, 50);
+
+                gradientStroke.addColorStop(1, 'rgba(29,140,248,0.2)');
+                gradientStroke.addColorStop(0.4, 'rgba(29,140,248,0.0)');
+                gradientStroke.addColorStop(0, 'rgba(29,140,248,0)'); //blue colors
+
+                var ChartMoisture = new Chart(ctxMoisture, {
+                    type: 'line',
+                    responsive: true,
+                    legend: {
+                        display: false
+                    },
+                    data: {
+                    labels: label,
+                        datasets: [{
+                            label: "moisture tanah",
+                            fill: true,
+                            backgroundColor: gradientStroke,
+                            hoverBackgroundColor: gradientStroke,
+                            borderColor: '#1f8ef1',
+                            borderWidth: 2,
+                            borderDash: [],
+                            borderDashOffset: 0.0,
+                            data: value,
+                        }]
+                    },
+                    options: gradientBarChartConfiguration
+                });
+                // // re-render the chart
+                ChartMoisture.update();
+            },
+
+            complete:function(){
+            // get new data every 3 seconds
+            setInterval(getDataMoisture, 3000);        
+            }
+        });
+    };
+
+    getDataMoisture()
 });
 </script>
 {% endblock %}
