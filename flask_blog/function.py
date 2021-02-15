@@ -12,7 +12,7 @@ def getData(query):
     return 0
 
 def getDataHujan():
-    query = "SELECT time, value FROM hujan ORDER BY desc LIMIT 1"
+    query = "SELECT time, value FROM hujan ORDER BY desc LIMIT 6"
     result = getData(query)
     hujan = {}
     hujan['label'] = []
@@ -31,7 +31,7 @@ def getDataHujan():
     return 0
 
 def getDataSuhu():
-    query = "SELECT time, value FROM suhu ORDER BY desc LIMIT 12"
+    query = "SELECT time, value FROM suhu ORDER BY desc LIMIT 6"
     result = getData(query)
     suhu = {}
     suhu['label'] = []
@@ -50,7 +50,7 @@ def getDataSuhu():
     return 0
 
 def getDataMoisture():
-    query = "SELECT time, value FROM moisture ORDER BY desc LIMIT 12"
+    query = "SELECT time, value FROM moisture ORDER BY desc LIMIT 6"
     result = getData(query)
     moisture = {}
     moisture['label'] = []
@@ -69,7 +69,7 @@ def getDataMoisture():
     return 0
 
 def getDataKelembapan():
-    query = "SELECT time, value FROM kelembapan ORDER BY desc LIMIT 12"
+    query = "SELECT time, value FROM kelembapan ORDER BY desc LIMIT 6"
     result = getData(query)
     kelembapan = {}
     kelembapan['label'] = []
